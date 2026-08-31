@@ -4,6 +4,17 @@
  */
 
 // ==========================================================================
+// CONFIGURACIÓN GENERAL DE LA TIENDA
+// ==========================================================================
+const STORE_CONFIG = {
+  whatsappNumber: "5492612586004", // +54 9 2612 58-6004
+  whatsappDisplay: "+54 9 2612 58-6004",
+  deliveryFee: 2500,
+  freeDeliveryThreshold: 45000,
+  storeName: "Paisana Bebidas"
+};
+
+// ==========================================================================
 // CONFIGURACIÓN DE CATEGORÍAS Y VARIETALES / SUB-PESTAÑAS
 // ==========================================================================
 const SUBCATEGORIES_MAP = {
