@@ -30,7 +30,8 @@ Plataforma e-commerce ultra moderna, rápida y responsive diseñada como **produ
   - Buscador predictivo en tiempo real.
   - Ordenamiento dinámico por menor/mayor precio, destacados y orden alfabético.
   - Ficha modal de producto con notas de cata, maridaje sugerido, origen y graduación alcohólica.
-  - Carrito persistente con `localStorage` y barra de progreso para **Envío Gratis**.
+  - Carrito persistente con `localStorage` y cálculo transparente de cadetería / retiro en local.
+  - Conmutador de visualización entre **Grilla Compacta** (alta densidad) y **Lista Ordenada** (formato carta/menú horizontal).
   - **Checkout Desacoplado por WhatsApp**: Genera automáticamente solicitudes de cotización estructuradas con código de referencia (`#COT-XXXXX`).
 
 - **Cumplimiento Normativo Local (Argentina)**:

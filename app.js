@@ -10,7 +10,6 @@ const STORE_CONFIG = {
   whatsappNumber: "5492612586004", // +54 9 2612 58-6004
   whatsappDisplay: "+54 9 2612 58-6004",
   deliveryFee: 2500,
-  freeDeliveryThreshold: 45000,
   storeName: "Paisana Bebidas"
 };
 
@@ -80,7 +79,8 @@ const AppState = {
   searchQuery: "",
   currentSort: "default",
   cart: [],
-  deliveryMethod: "envio" // 'envio' o 'retiro'
+  deliveryMethod: "envio", // 'envio' o 'retiro'
+  viewMode: localStorage.getItem("paisana_view_mode") || "grid"
 };
 
 // ==========================================================================
@@ -170,6 +170,17 @@ function setupEventListeners() {
       renderProducts();
     });
   }
+
+  // Conmutador de vista (Grid vs List)
+  const viewGridBtn = document.getElementById("viewGridBtn");
+  const viewListBtn = document.getElementById("viewListBtn");
+  if (viewGridBtn) {
+    viewGridBtn.addEventListener("click", () => setViewMode("grid"));
+  }
+  if (viewListBtn) {
+    viewListBtn.addEventListener("click", () => setViewMode("list"));
+  }
+  applyViewModeUI();
 
   // Carrito Drawer Trigger (Desktop & Mobile)
   const desktopCartBtn = document.getElementById("desktopCartBtn");
@@ -459,7 +470,7 @@ function renderProducts() {
       return `
       <article class="product-card" data-id="${product.id}">
         <div class="product-media" onclick="openProductModal('${product.id}')">
-          <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy">
+          <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy" onerror="handleProductImgError(this, '${product.category}')">
           <div class="product-badges-wrap">
             ${badgeHtml}
           </div>
@@ -469,16 +480,18 @@ function renderProducts() {
         </div>
 
         <div class="product-body">
-          <div class="product-meta-row">
-            <span class="product-category-tag">${product.subcategory.replace("-", " ")}</span>
-            <span class="product-vol-tag">${product.volume}</span>
+          <div class="product-info-col">
+            <div class="product-meta-row">
+              <span class="product-category-tag">${product.subcategory.replace("-", " ")}</span>
+              <span class="product-vol-tag">${product.volume}</span>
+            </div>
+
+            <h3 class="product-name" onclick="openProductModal('${product.id}')" title="${product.name}">
+              ${product.name}
+            </h3>
+
+            <p class="product-details-brief">${product.origin} • ${product.alcohol}</p>
           </div>
-
-          <h3 class="product-name" onclick="openProductModal('${product.id}')" title="${product.name}">
-            ${product.name}
-          </h3>
-
-          <p class="product-details-brief">${product.origin} • ${product.alcohol}</p>
 
           <div class="product-footer">
             <div class="price-box">
@@ -495,6 +508,8 @@ function renderProducts() {
     `;
     })
     .join("");
+
+  applyViewModeUI();
 }
 
 function resetFilters() {
@@ -715,20 +730,6 @@ function updateCartUI() {
   const cartSubtotalEl = document.getElementById("cartSubtotal");
   const cartShippingFeeEl = document.getElementById("cartShippingFee");
   const cartTotalSumEl = document.getElementById("cartTotalSum");
-  const shippingText = document.getElementById("shippingText");
-  const shippingBar = document.getElementById("shippingProgressBar");
-
-  // Barra de Envío Gratis
-  const freeThreshold = STORE_CONFIG.freeDeliveryThreshold;
-  if (subtotal >= freeThreshold) {
-    if (shippingText) shippingText.innerHTML = `🎉 ¡Felicitaciones! Tenés <strong>ENVÍO GRATIS</strong>`;
-    if (shippingBar) shippingBar.style.width = "100%";
-  } else {
-    const diff = freeThreshold - subtotal;
-    const pct = Math.min(100, Math.round((subtotal / freeThreshold) * 100));
-    if (shippingText) shippingText.innerHTML = `Sumá <strong>${formatMoney(diff)}</strong> más para <strong>Envío Gratis</strong>`;
-    if (shippingBar) shippingBar.style.width = `${pct}%`;
-  }
 
   // Lista de items en Drawer
   if (cartList) {
@@ -745,7 +746,7 @@ function updateCartUI() {
         .map((item) => {
           return `
           <div class="cart-item-row">
-            <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+            <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="handleProductImgError(this, '')">
             <div class="cart-item-info">
               <span class="cart-item-title">${item.name}</span>
               <span class="cart-item-price">${formatMoney(item.price * item.quantity)}</span>
@@ -769,21 +770,61 @@ function updateCartUI() {
     }
   }
 
-  // Totales
-  const shippingCost = subtotal === 0 || subtotal >= freeThreshold ? 0 : STORE_CONFIG.deliveryFee;
-  const finalTotal = subtotal + (AppState.deliveryMethod === "envio" ? shippingCost : 0);
+  // Totales y Costo de Envío / Retiro
+  const isDelivery = AppState.deliveryMethod === "envio";
+  const shippingCost = isDelivery && subtotal > 0 ? STORE_CONFIG.deliveryFee : 0;
+  const finalTotal = subtotal + shippingCost;
 
   if (cartSubtotalEl) cartSubtotalEl.textContent = formatMoney(subtotal);
   if (cartShippingFeeEl) {
     if (AppState.deliveryMethod === "retiro") {
       cartShippingFeeEl.textContent = "Retiro en local ($0)";
-    } else if (subtotal >= freeThreshold) {
-      cartShippingFeeEl.textContent = "¡Gratis!";
+    } else if (subtotal === 0) {
+      cartShippingFeeEl.textContent = "$0";
     } else {
-      cartShippingFeeEl.textContent = formatMoney(shippingCost);
+      cartShippingFeeEl.textContent = `${formatMoney(shippingCost)} (Cadetería)`;
     }
   }
   if (cartTotalSumEl) cartTotalSumEl.textContent = formatMoney(finalTotal);
+}
+
+// Control de Vista (Grilla vs Lista)
+function setViewMode(mode) {
+  AppState.viewMode = mode;
+  try {
+    localStorage.setItem("paisana_view_mode", mode);
+  } catch (e) {}
+  applyViewModeUI();
+}
+
+function applyViewModeUI() {
+  const gridEl = document.getElementById("productsGrid");
+  const gridBtn = document.getElementById("viewGridBtn");
+  const listBtn = document.getElementById("viewListBtn");
+
+  if (gridEl) {
+    if (AppState.viewMode === "list") {
+      gridEl.classList.add("list-view");
+    } else {
+      gridEl.classList.remove("list-view");
+    }
+  }
+
+  if (gridBtn && listBtn) {
+    if (AppState.viewMode === "list") {
+      listBtn.classList.add("active");
+      gridBtn.classList.remove("active");
+    } else {
+      gridBtn.classList.add("active");
+      listBtn.classList.remove("active");
+    }
+  }
+}
+
+// Fallback de imagen para productos que no posean foto específica
+function handleProductImgError(img, category) {
+  img.onerror = null;
+  img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160"><rect width="160" height="160" fill="%230d1117"/><circle cx="80" cy="80" r="50" fill="%2317202e"/><path d="M72 35h16v20l12 25v45H60V80l12-25V35z" fill="none" stroke="%233ca1a4" stroke-width="3.5" stroke-linecap="round"/><circle cx="80" cy="98" r="10" fill="%23e5aa38" opacity="0.8"/><path d="M68 132h24" stroke="%23e5aa38" stroke-width="3" stroke-linecap="round"/></svg>';
 }
 
 // ==========================================================================
@@ -837,8 +878,8 @@ function handleCheckoutSubmit(e) {
   const notes = document.getElementById("orderNotes").value.trim();
 
   const subtotal = AppState.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const freeThreshold = STORE_CONFIG.freeDeliveryThreshold;
-  const shippingCost = AppState.deliveryMethod === "envio" && subtotal < freeThreshold ? STORE_CONFIG.deliveryFee : 0;
+  const isDelivery = AppState.deliveryMethod === "envio";
+  const shippingCost = isDelivery ? STORE_CONFIG.deliveryFee : 0;
   const total = subtotal + shippingCost;
   const inquiryCode = `COT-${Date.now().toString().slice(-5)}`;
 
@@ -847,9 +888,9 @@ function handleCheckoutSubmit(e) {
   message += `*Paisana Bebidas* | Ref: #${inquiryCode}\n`;
   message += `━━━━━━━━━━━━━━━━━━━━━\n`;
   message += `👤 *Cliente:* ${name}\n`;
-  message += `🛵 *Modalidad:* ${AppState.deliveryMethod === "envio" ? "Envío a Domicilio" : "Retiro en Local"}\n`;
+  message += `🛵 *Modalidad:* ${isDelivery ? "Envío a Domicilio" : "Retiro en Local"}\n`;
 
-  if (AppState.deliveryMethod === "envio") {
+  if (isDelivery) {
     message += `📍 *Dirección de Entrega:* ${address}\n`;
   }
   message += `💳 *Medio de Pago Propuesto:* ${payment}\n`;
@@ -866,8 +907,10 @@ function handleCheckoutSubmit(e) {
 
   message += `━━━━━━━━━━━━━━━━━━━━━\n`;
   message += `💰 *Subtotal Estimado:* ${formatMoney(subtotal)}\n`;
-  if (AppState.deliveryMethod === "envio") {
-    message += `🚚 *Envío:* ${shippingCost === 0 ? "¡GRATIS!" : formatMoney(shippingCost)}\n`;
+  if (isDelivery) {
+    message += `🚚 *Envío a Domicilio:* ${formatMoney(shippingCost)} (Cadetería en moto)\n`;
+  } else {
+    message += `🏪 *Retiro en Local:* Sin costo\n`;
   }
   message += `💎 *TOTAL ESTIMADO:* ${formatMoney(total)}\n`;
   message += `━━━━━━━━━━━━━━━━━━━━━\n`;

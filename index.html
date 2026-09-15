@@ -20,16 +20,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Estilos Principales -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
 
   <!-- Barra Superior de Anuncios -->
   <div class="announcement-bar">
-    <span>🚚 Envíos express en 45 min</span>
-    <span class="badge-pill">ENVÍO GRATIS desde $35.000</span>
-    <span class="announcement-hide-mobile">❄️ Bebidas listas para tomar</span>
+    <span>🚚 Envíos express a domicilio en Mendoza</span>
+    <span class="badge-pill">❄️ Bebidas listas para tomar</span>
+    <span class="announcement-hide-mobile">✨ Vinos de Autor & Destilados Selectos</span>
   </div>
 
   <!-- Header Principal -->
@@ -189,9 +189,19 @@
           <!-- Inyectado dinámicamente con JS -->
         </div>
 
-        <!-- Controles: Contador de artículos y Ordenamiento -->
+        <!-- Controles: Contador de artículos, selector de vista y ordenamiento -->
         <div class="catalog-controls">
           <span class="items-counter" id="itemsCount">0 productos</span>
+          
+          <div class="view-mode-toggle" id="viewModeToggle" role="group" aria-label="Modo de vista">
+            <button class="view-mode-btn active" id="viewGridBtn" data-view="grid" title="Vista Cuadrícula Compacta" aria-label="Vista Cuadrícula">
+              <i class="fa-solid fa-table-cells"></i>
+            </button>
+            <button class="view-mode-btn" id="viewListBtn" data-view="list" title="Vista Lista Ordenada" aria-label="Vista Lista">
+              <i class="fa-solid fa-list-ul"></i>
+            </button>
+          </div>
+
           <div class="sort-select-wrap">
             <select id="sortSelect" class="sort-select" aria-label="Ordenar productos">
               <option value="default">✨ Destacados</option>
@@ -254,12 +264,10 @@
       </button>
     </div>
 
-    <!-- Barra de progreso para envío gratis -->
-    <div class="free-shipping-bar" id="freeShippingBanner">
-      <div id="shippingText">Agregá más productos para <strong>Envío Gratis</strong></div>
-      <div class="shipping-progress-bg">
-        <div class="shipping-progress-fill" id="shippingProgressBar" style="width: 0%;"></div>
-      </div>
+    <!-- Sub-encabezado de Carrito -->
+    <div class="cart-subhead-notice">
+      <i class="fa-solid fa-shield-check" style="color: var(--gold-primary);"></i>
+      <span>Coordiná entrega o retiro directo por WhatsApp</span>
     </div>
 
     <!-- Lista de Productos en el Carrito -->
@@ -590,6 +598,6 @@
 
   <!-- Scripts -->
   <script src="data/products.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
