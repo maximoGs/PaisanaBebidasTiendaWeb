@@ -10,25 +10,37 @@ const STORE_CONFIG = {
   whatsappNumber: "5492612586004", // +54 9 2612 58-6004
   whatsappDisplay: "+54 9 2612 58-6004",
   deliveryFee: 2500,
-  storeName: "Paisana Bebidas"
+  storeName: "Paisana Bebidas",
+  storeAddress: "C. Tapón Moyano 1745, M5523 Mendoza",
+  mapsUrl: "https://maps.app.goo.gl/JSEvWcQvFY8zpxcH9",
+  bodegaAmigaNumber: "5492617094195" // Martino Wines (solo para reservas y promoción de Martino)
 };
 
 // ==========================================================================
 // CONFIGURACIÓN DE CATEGORÍAS Y VARIETALES / SUB-PESTAÑAS
 // ==========================================================================
 const SUBCATEGORIES_MAP = {
-  vinos: {
-    title: "Vinos de Autor",
+  tintos: {
+    title: "Vinos Tintos",
     icon: "fa-solid fa-wine-glass",
-    subtitle: "Explorá nuestras mejores etiquetas seleccionadas por varietal",
+    subtitle: "Explorá nuestras mejores etiquetas tintas: Malbec, Cabernet Sauvignon, Blends y variedades de autor",
     subchips: [
-      { id: "all", label: "🍷 Todos los Vinos" },
+      { id: "all", label: "🍷 Todos los Tintos" },
       { id: "malbec", label: "🍇 Malbec" },
       { id: "cabernet-sauvignon", label: "🍷 Cabernet Sauvignon" },
-      { id: "blends", label: "✨ Blends & Cortes" },
+      { id: "blends", label: "✨ Blends & Otros Tintos" }
+    ]
+  },
+  blancos: {
+    title: "Vinos Blancos & Espumantes",
+    icon: "fa-solid fa-champagne-glasses",
+    subtitle: "Chardonnay, cepas blancas, dulces de cosecha tardía, rosados y espumantes",
+    subchips: [
+      { id: "all", label: "🥂 Todos los Blancos" },
       { id: "blancos-chardonnay", label: "🥂 Blancos & Chardonnay" },
-      { id: "rosados", label: "🌸 Rosados" },
-      { id: "espumantes", label: "🍾 Espumantes" }
+      { id: "dulces", label: "🍯 Dulces Cosecha Tardía" },
+      { id: "espumantes", label: "🍾 Espumantes" },
+      { id: "rosados", label: "🌸 Rosados" }
     ]
   },
   bebidas: {
@@ -57,7 +69,7 @@ const SUBCATEGORIES_MAP = {
     ]
   },
   snacks: {
-    title: "Snacks & Varios",
+    title: "Snacks & Combos",
     icon: "fa-solid fa-bowl-food",
     subtitle: "Snacks crocantes, chocolates, hielo, descartables y super combos",
     subchips: [
@@ -74,7 +86,7 @@ const SUBCATEGORIES_MAP = {
 // ESTADO GLOBAL DE LA APLICACIÓN
 // ==========================================================================
 const AppState = {
-  currentCategory: "vinos",
+  currentCategory: "tintos",
   currentSubcategory: "all",
   searchQuery: "",
   currentSort: "default",
@@ -93,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderSubcategoryChips();
   renderProducts();
   updateCartUI();
+  initPromoCarousel();
 });
 
 // ==========================================================================
@@ -309,6 +322,9 @@ function handleSearch(query) {
 // CAMBIO DE CATEGORÍAS & SUB-VARIETALES
 // ==========================================================================
 function switchCategory(categoryKey) {
+  if (categoryKey === "vinos") {
+    categoryKey = "tintos";
+  }
   if (!SUBCATEGORIES_MAP[categoryKey]) return;
 
   AppState.currentCategory = categoryKey;
@@ -370,6 +386,160 @@ function filterByPromoCombos() {
   setTimeout(() => {
     filterBySubcategory("promos-combos");
   }, 50);
+}
+
+function filterMartinoWines() {
+  switchCategory("tintos");
+  AppState.searchQuery = "martino";
+  syncSearchInputs("Martino", "none");
+  renderProducts();
+  const catEl = document.getElementById("catalogo");
+  if (catEl) catEl.scrollIntoView({ behavior: "smooth" });
+  showToast("Explorando varietales de Bodega Martino 🍷");
+}
+
+function addComboToCart(code) {
+  const codeStr = String(code).trim();
+  const product = PRODUCTS_DATA.find((p) => {
+    const pCode = String(p.code || "").trim();
+    return pCode === codeStr || pCode.padStart(3, "0") === codeStr.padStart(3, "0") || p.id === `prod-${codeStr}`;
+  });
+
+  if (product) {
+    addToCart(product.id, 1);
+    openCart();
+  } else {
+    filterByPromoCombos();
+  }
+}
+
+function consultProduct(productId) {
+  const product = PRODUCTS_DATA.find((p) => p.id === productId);
+  if (!product) return;
+  const msg = `Hola Paisana Bebidas! Quería consultar disponibilidad y precio de: ${product.name} (${product.volume || "750 ml"}).`;
+  const url = `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank");
+}
+
+// ==========================================================================
+// CARRUSEL PROMOCIONAL (Bodega Amiga + 3 Combos)
+// ==========================================================================
+function initPromoCarousel() {
+  const wrapper = document.getElementById("promoCarouselWrapper");
+  const slides = document.querySelectorAll(".carousel-slide");
+  const dots = document.querySelectorAll(".carousel-dot");
+  const counter = document.getElementById("carouselCounterBadge");
+  const prevBtn = document.getElementById("carouselPrevBtn");
+  const nextBtn = document.getElementById("carouselNextBtn");
+
+  if (!slides || slides.length === 0) return;
+
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+  let autoPlayTimer = null;
+  const slideDuration = 6500; // 6.5 segundos por slide
+
+  function goToSlide(index) {
+    currentSlide = (index + totalSlides) % totalSlides;
+
+    slides.forEach((slide, i) => {
+      if (i === currentSlide) {
+        slide.classList.add("active");
+      } else {
+        slide.classList.remove("active");
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      if (i === currentSlide) {
+        dot.classList.add("active");
+      } else {
+        dot.classList.remove("active");
+      }
+    });
+
+    if (counter) {
+      counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+    }
+  }
+
+  function nextSlide() {
+    goToSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(currentSlide - 1);
+  }
+
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayTimer = setInterval(nextSlide, slideDuration);
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayTimer) {
+      clearInterval(autoPlayTimer);
+      autoPlayTimer = null;
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+      startAutoPlay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+      startAutoPlay();
+    });
+  }
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const targetIdx = parseInt(dot.getAttribute("data-slide-to"), 10);
+      if (!isNaN(targetIdx)) {
+        goToSlide(targetIdx);
+        startAutoPlay();
+      }
+    });
+  });
+
+  if (wrapper) {
+    wrapper.addEventListener("mouseenter", stopAutoPlay);
+    wrapper.addEventListener("mouseleave", startAutoPlay);
+
+    // Gestos táctiles / Swipe en móviles y tablets
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    wrapper.addEventListener("touchstart", (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        touchStartX = e.changedTouches[0].screenX;
+      }
+      stopAutoPlay();
+    }, { passive: true });
+
+    wrapper.addEventListener("touchend", (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 40) {
+          if (diff < 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+      }
+      startAutoPlay();
+    }, { passive: true });
+  }
+
+  goToSlide(0);
+  startAutoPlay();
 }
 
 // Renderizar Sub-pestañas / Chips
@@ -499,9 +669,15 @@ function renderProducts() {
               <span class="current-price">${formatPrice}</span>
             </div>
 
-            <button class="btn-add-cart" onclick="addToCart('${product.id}', 1)" title="Agregar al pedido" aria-label="Agregar ${product.name}">
-              <i class="fa-solid fa-plus"></i>
-            </button>
+            ${
+              product.price > 0
+                ? `<button class="btn-add-cart" onclick="addToCart('${product.id}', 1)" title="Agregar al pedido" aria-label="Agregar ${product.name}">
+                     <i class="fa-solid fa-plus"></i>
+                   </button>`
+                : `<button class="btn-add-cart btn-consultar-wa" onclick="consultProduct('${product.id}')" title="Consultar por WhatsApp" aria-label="Consultar ${product.name}">
+                     <i class="fa-brands fa-whatsapp"></i>
+                   </button>`
+            }
           </div>
         </div>
       </article>
@@ -542,7 +718,7 @@ function openProductModal(productId) {
 
   modalBody.innerHTML = `
     <div class="modal-image-col">
-      <img src="${product.image}" alt="${product.name}">
+      <img src="${product.image}" alt="${product.name}" onerror="handleProductImgError(this, '${product.category}')">
       ${product.badge ? `<div style="position: absolute; top: 14px; left: 14px;"><span class="badge-tag">${product.badge}</span></div>` : ""}
     </div>
 
@@ -587,15 +763,25 @@ function openProductModal(productId) {
       }
 
       <div class="modal-action-row">
-        <div class="quantity-controller">
-          <button class="qty-btn" onclick="changeModalQty(-1)"><i class="fa-solid fa-minus"></i></button>
-          <span class="qty-display" id="modalQtyDisplay">1</span>
-          <button class="qty-btn" onclick="changeModalQty(1)"><i class="fa-solid fa-plus"></i></button>
-        </div>
+        ${
+          product.price > 0
+            ? `
+          <div class="quantity-controller">
+            <button class="qty-btn" onclick="changeModalQty(-1)"><i class="fa-solid fa-minus"></i></button>
+            <span class="qty-display" id="modalQtyDisplay">1</span>
+            <button class="qty-btn" onclick="changeModalQty(1)"><i class="fa-solid fa-plus"></i></button>
+          </div>
 
-        <button class="btn-primary" style="flex: 1; justify-content: center;" onclick="addModalProductToCart('${product.id}')">
-          <i class="fa-solid fa-cart-shopping"></i> Agregar al Pedido
-        </button>
+          <button class="btn-primary" style="flex: 1; justify-content: center;" onclick="addModalProductToCart('${product.id}')">
+            <i class="fa-solid fa-cart-shopping"></i> Agregar al Pedido
+          </button>
+        `
+            : `
+          <button class="btn-primary" style="flex: 1; justify-content: center; background: #25d366; color: #000; border-color: #25d366;" onclick="consultProduct('${product.id}')">
+            <i class="fa-brands fa-whatsapp"></i> Consultar Disponibilidad
+          </button>
+        `
+        }
       </div>
     </div>
   `;
@@ -714,7 +900,7 @@ function closeCart() {
 
 function updateCartUI() {
   const totalItems = AppState.cart.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = AppState.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = AppState.cart.reduce((sum, item) => sum + (item.price > 0 ? item.price * item.quantity : 0), 0);
 
   // Header badges & Mobile badges
   const headerBadge = document.getElementById("headerCartBadge");
@@ -723,7 +909,7 @@ function updateCartUI() {
 
   if (headerBadge) headerBadge.textContent = totalItems;
   if (mobileBadge) mobileBadge.textContent = totalItems;
-  if (headerTotal) headerTotal.textContent = formatMoney(subtotal);
+  if (headerTotal) headerTotal.textContent = subtotal > 0 ? formatMoney(subtotal) : (totalItems > 0 ? "A consultar" : "$0");
 
   // Drawer list
   const cartList = document.getElementById("cartItemsList");
@@ -744,12 +930,13 @@ function updateCartUI() {
     } else {
       cartList.innerHTML = AppState.cart
         .map((item) => {
+          const itemTotalStr = item.price > 0 ? formatMoney(item.price * item.quantity) : "A consultar";
           return `
           <div class="cart-item-row">
             <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="handleProductImgError(this, '')">
             <div class="cart-item-info">
               <span class="cart-item-title">${item.name}</span>
-              <span class="cart-item-price">${formatMoney(item.price * item.quantity)}</span>
+              <span class="cart-item-price">${itemTotalStr}</span>
               
               <div class="cart-item-actions">
                 <div class="cart-qty-ctrl">
@@ -848,15 +1035,18 @@ function toggleDeliveryMethod(method) {
   const addressInput = document.getElementById("customerAddress");
   const radioDelivery = document.getElementById("radioDeliveryLabel");
   const radioPickup = document.getElementById("radioPickupLabel");
+  const pickupBox = document.getElementById("pickupLocationBox");
 
   if (method === "retiro") {
     if (addressGroup) addressGroup.style.display = "none";
     if (addressInput) addressInput.required = false;
+    if (pickupBox) pickupBox.style.display = "block";
     if (radioDelivery) radioDelivery.classList.remove("selected");
     if (radioPickup) radioPickup.classList.add("selected");
   } else {
     if (addressGroup) addressGroup.style.display = "block";
     if (addressInput) addressInput.required = true;
+    if (pickupBox) pickupBox.style.display = "none";
     if (radioDelivery) radioDelivery.classList.add("selected");
     if (radioPickup) radioPickup.classList.remove("selected");
   }
@@ -877,7 +1067,7 @@ function handleCheckoutSubmit(e) {
   const payment = document.getElementById("paymentMethod").value;
   const notes = document.getElementById("orderNotes").value.trim();
 
-  const subtotal = AppState.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = AppState.cart.reduce((sum, item) => sum + (item.price > 0 ? item.price * item.quantity : 0), 0);
   const isDelivery = AppState.deliveryMethod === "envio";
   const shippingCost = isDelivery ? STORE_CONFIG.deliveryFee : 0;
   const total = subtotal + shippingCost;
@@ -901,8 +1091,10 @@ function handleCheckoutSubmit(e) {
   message += `📋 *PRODUCTOS SELECCIONADOS DEL CATÁLOGO:*\n\n`;
 
   AppState.cart.forEach((item, index) => {
+    const unitPriceStr = item.price > 0 ? formatMoney(item.price) : "A consultar";
+    const lineTotalStr = item.price > 0 ? formatMoney(item.price * item.quantity) : "A consultar";
     message += `${index + 1}. *${item.name}* (${item.volume})\n`;
-    message += `   ${item.quantity} un. x ${formatMoney(item.price)} = *${formatMoney(item.price * item.quantity)}*\n`;
+    message += `   ${item.quantity} un. x ${unitPriceStr} = *${lineTotalStr}*\n`;
   });
 
   message += `━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -911,6 +1103,8 @@ function handleCheckoutSubmit(e) {
     message += `🚚 *Envío a Domicilio:* ${formatMoney(shippingCost)} (Cadetería en moto)\n`;
   } else {
     message += `🏪 *Retiro en Local:* Sin costo\n`;
+    message += `📍 *Punto de Retiro:* ${STORE_CONFIG.storeAddress}\n`;
+    message += `🗺️ *Ubicación Maps:* ${STORE_CONFIG.mapsUrl}\n`;
   }
   message += `💎 *TOTAL ESTIMADO:* ${formatMoney(total)}\n`;
   message += `━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -997,7 +1191,9 @@ function closePrivacyModal() {
 // UTILIDADES, SEGURIDAD & TOAST
 // ==========================================================================
 function formatMoney(amount) {
-  return `$${Number(amount || 0).toLocaleString("es-AR")}`;
+  const num = Number(amount);
+  if (isNaN(num) || num <= 0) return "Consultar";
+  return `$${num.toLocaleString("es-AR")}`;
 }
 
 function escapeHTML(str) {

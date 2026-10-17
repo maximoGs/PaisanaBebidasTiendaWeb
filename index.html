@@ -11,25 +11,28 @@
   <meta property="og:description" content="Catálogo exclusivo de vinos, bebidas destiladas, mixers y snacks con entrega rápida. Hacé tu pedido directo por WhatsApp.">
   <meta property="og:type" content="website">
   
-  <!-- Google Fonts: Plus Jakarta Sans & Cinzel -->
+  <!-- Google Fonts: Roboto Slab -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Font Awesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Estilos Principales -->
-  <link rel="stylesheet" href="styles.css?v=2">
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="icon" type="image/jpeg" href="assets/LogoDePaisana.jpeg">
 </head>
 <body>
 
   <!-- Barra Superior de Anuncios -->
   <div class="announcement-bar">
-    <span>🚚 Envíos express a domicilio en Mendoza</span>
-    <span class="badge-pill">❄️ Bebidas listas para tomar</span>
-    <span class="announcement-hide-mobile">✨ Vinos de Autor & Destilados Selectos</span>
+    <span><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> C. Tapón Moyano 1745, Mendoza</span>
+    <a href="https://maps.app.goo.gl/JSEvWcQvFY8zpxcH9" target="_blank" rel="noopener noreferrer" class="announcement-maps-link">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver en Maps
+    </a>
+    <span class="announcement-hide-mobile">❄️ Bebidas listas para tomar</span>
+    <span class="badge-pill">🛵 Envíos express a domicilio</span>
   </div>
 
   <!-- Header Principal -->
@@ -40,7 +43,7 @@
         <!-- Marca / Logo -->
         <a href="#inicio" class="brand-logo" id="brandLogo">
           <div class="brand-logo-badge">
-            <img src="assets/logo.svg" alt="Paisana Bebidas Logo" class="brand-logo-img">
+            <img src="assets/LogoDePaisana.jpeg" alt="Paisana Bebidas Logo" class="brand-logo-img">
           </div>
           <div class="brand-text">
             <span class="brand-title">PAISANA</span>
@@ -88,62 +91,351 @@
     </div>
   </div>
 
-  <!-- Hero / Banner de Promociones -->
-  <section class="hero-section" id="inicio">
+  <!-- Carrusel Promocional de Inicio (Bodega Amiga + 3 Combos Destacados) -->
+  <section class="hero-section" id="inicio" aria-roledescription="carousel" aria-label="Promociones y Bodega Amiga">
     <div class="container">
-      <div class="hero-banner">
-        <div class="hero-decor-orb hero-orb-teal"></div>
-        <div class="hero-decor-orb hero-orb-gold"></div>
+      <div class="promo-carousel-wrapper" id="promoCarouselWrapper">
         
-        <div class="hero-content">
-          <div class="hero-tag">
-            <img src="assets/logo.svg" alt="Hop icon" class="hero-tag-icon"> Selección Artesanal & Premium 2026
-          </div>
-          <h1 class="hero-title">
-            Vinos de Autor, <span>Cervezas & Bebidas</span> de Selección
-          </h1>
-          <p class="hero-desc">
-            Vinos boutique por varietales, cervezas con lúpulos seleccionados, destilados premium y combos listos para tus previas y reuniones.
-          </p>
+        <!-- Contenedor de Slides -->
+        <div class="promo-carousel" id="promoCarousel">
+          
+          <!-- SLIDE 1: Bodega Amiga (Martino Wines - Promo Única) -->
+          <div class="carousel-slide active" data-slide-index="0" data-theme="martino">
+            <div class="hero-banner carousel-banner-card">
+              <div class="hero-decor-orb hero-orb-teal"></div>
+              <div class="hero-decor-orb hero-orb-gold"></div>
+              
+              <div class="hero-content">
+                <div class="carousel-tags-row">
+                  <div class="hero-tag carousel-tag-gold">
+                    <i class="fa-solid fa-award"></i> Visita Nuestra Bodega Amiga
+                  </div>
+                  <span class="carousel-tag-pill">
+                    <i class="fa-solid fa-location-dot"></i> Luján de Cuyo, Mendoza
+                  </span>
+                  <span class="carousel-tag-exclusive">
+                    <i class="fa-solid fa-star"></i> Promo Única Paisana
+                  </span>
+                </div>
 
-          <div class="hero-features">
-            <div class="hero-feature-item">
-              <i class="fa-solid fa-bolt"></i>
-              <span>Entrega Express 45'</span>
-            </div>
-            <div class="hero-feature-item">
-              <i class="fa-solid fa-temperature-arrow-down"></i>
-              <span>Bebidas Frías</span>
-            </div>
-            <div class="hero-feature-item">
-              <i class="fa-solid fa-shield-halved"></i>
-              <span>Garantía & Calidad</span>
-            </div>
-          </div>
+                <h1 class="hero-title carousel-hero-title">
+                  Visita Nuestra Bodega Amiga: <span>Martino Wines</span>
+                </h1>
 
-          <div class="hero-buttons">
-            <button class="btn-primary" onclick="switchCategory('vinos')">
-              <i class="fa-solid fa-wine-glass"></i> Explorar Catálogo
-            </button>
-            <button class="btn-secondary" onclick="filterByPromoCombos()">
-              <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Combos Previa
-            </button>
-          </div>
-        </div>
+                <p class="hero-desc carousel-hero-desc">
+                  Viví una experiencia gastronómica y enoturística en su finca con <strong>copa de bienvenida de cortesía</strong> para la comunidad de Paisana Bebidas. Descubrí su menú maridado por <strong>3, 5 y 8 pasos</strong> y sus cepas contemporáneas de autor.
+                </p>
 
-        <div class="hero-visual">
-          <div class="hero-logo-showcase">
-            <div class="hero-badge-glow-ring">
-              <img src="assets/logo.svg" alt="Paisana Bebidas Emblema" class="hero-big-logo">
-            </div>
-            <div class="hero-card-float">
-              <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=300&auto=format&fit=crop&q=80" alt="Vino Malbec" class="hero-card-img">
-              <div>
-                <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">DESTACADO DEL MES</div>
-                <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Catena Zapata Malbec</div>
-                <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$48.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$54.000</span></div>
+                <div class="hero-features carousel-features-row">
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span>Menú maridado 3, 5 y 8 pasos</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-wine-glass"></i>
+                    <span>Degustación guiada en Finca</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-gift"></i>
+                    <span>Beneficio exclusivo clientes Paisana</span>
+                  </div>
+                </div>
+
+                <div class="hero-buttons carousel-buttons-row">
+                  <a href="https://wa.me/5492617094195?text=Hola%20Martino%20Wines!%20Me%20contacto%20desde%20la%20tienda%20web%20de%20Paisana%20Bebidas%20para%20consultar%20y%20reservar%20la%20promo%20%C3%BAnica%20de%20visita%20a%20la%20bodega%20(experiencia%20maridaje%203,%205%20y%208%20pasos)." target="_blank" rel="noopener noreferrer" class="btn-primary btn-wa-martino" id="btnCarouselReservarMartino">
+                    <i class="fa-brands fa-whatsapp"></i> Reservar Experiencia por WhatsApp
+                  </a>
+                  <button class="btn-secondary" onclick="filterMartinoWines()">
+                    <i class="fa-solid fa-wine-bottle"></i> Ver Vinos Martino en Tienda
+                  </button>
+                </div>
+              </div>
+
+              <div class="hero-visual">
+                <div class="hero-logo-showcase">
+                  <div class="hero-badge-glow-ring">
+                    <img src="assets/LogoDePaisana.jpeg" alt="Paisana Bebidas Emblema" class="hero-big-logo">
+                  </div>
+                  <div class="hero-card-float">
+                    <img src="FotosDeProductos/VINOS/Martino cabernet franc 2025.jpg" alt="Martino Wines Colección" class="hero-card-img" style="object-fit: contain; background: rgba(255,255,255,0.06); padding: 4px;">
+                    <div>
+                      <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">BODEGA AMIGA SELECCIÓN</div>
+                      <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Martino Wines Colección</div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$22.500 <span style="font-size: 0.7rem; color: var(--teal-light); font-weight: 600;">• 5 Varietales</span></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+
+          <!-- SLIDE 2: Combo 1 (Fernet Branca + Coca-Cola + Hielo) -->
+          <div class="carousel-slide" data-slide-index="1" data-theme="combo1">
+            <div class="hero-banner carousel-banner-card">
+              <div class="hero-decor-orb hero-orb-teal"></div>
+              <div class="hero-decor-orb hero-orb-gold"></div>
+
+              <div class="hero-content">
+                <div class="carousel-tags-row">
+                  <div class="hero-tag carousel-tag-gold">
+                    <i class="fa-solid fa-fire"></i> Combo Previa #1
+                  </div>
+                  <span class="carousel-tag-pill">
+                    <i class="fa-solid fa-temperature-arrow-down"></i> Bebidas Frías
+                  </span>
+                  <span class="carousel-tag-exclusive">
+                    <i class="fa-solid fa-tags"></i> Ahorro Especial
+                  </span>
+                </div>
+
+                <h2 class="hero-title carousel-hero-title">
+                  Combo Fernet Branca + <span>Coca-Cola 2.25L</span> + Hielo
+                </h2>
+
+                <p class="hero-desc carousel-hero-desc">
+                  El rey indiscutido de las juntadas mendocinas: 1 botella de <strong>Fernet Branca 750ml</strong> + 1 <strong>Coca-Cola 2.25L regular</strong> + 1 <strong>Bolsa de Hielo Rolito</strong>. ¡Todo frío y listo para servir en tu previa!
+                </p>
+
+                <div class="hero-features carousel-features-row">
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-bottle-droplet"></i>
+                    <span>Fernet Branca 750ml</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-glass-water"></i>
+                    <span>Coca-Cola 2.25L</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-snowflake"></i>
+                    <span>Bolsa Hielo Rolito</span>
+                  </div>
+                </div>
+
+                <div class="hero-buttons carousel-buttons-row">
+                  <button class="btn-primary" onclick="addComboToCart('479')">
+                    <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($25.500)
+                  </button>
+                  <button class="btn-secondary" onclick="filterByPromoCombos()">
+                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver Todos los Combos
+                  </button>
+                </div>
+              </div>
+
+              <div class="hero-visual">
+                <div class="hero-logo-showcase">
+                  <div class="hero-badge-glow-ring">
+                    <img src="FotosDeProductos/combo fernet.jpg" alt="Combo Fernet Branca y Coca" class="hero-big-logo" style="border-radius: var(--radius-full); object-fit: cover;">
+                  </div>
+                  <div class="hero-card-float">
+                    <img src="FotosDeProductos/combo fernet.jpg" alt="Combo Fernet" class="hero-card-img" style="object-fit: cover;">
+                    <div>
+                      <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">COMBO MÁS PEDIDO</div>
+                      <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Fernet Branca + Coca + Hielo</div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$25.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$28.900</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: Combo 2 (Aperol Spritz + Espumante Callia) -->
+          <div class="carousel-slide" data-slide-index="2" data-theme="combo3">
+            <div class="hero-banner carousel-banner-card">
+              <div class="hero-decor-orb hero-orb-teal"></div>
+              <div class="hero-decor-orb hero-orb-gold"></div>
+
+              <div class="hero-content">
+                <div class="carousel-tags-row">
+                  <div class="hero-tag carousel-tag-gold">
+                    <i class="fa-solid fa-sun"></i> Atardeceres & Spritz
+                  </div>
+                  <span class="carousel-tag-pill">
+                    <i class="fa-solid fa-champagne-glasses"></i> Burbujas Extra Brut
+                  </span>
+                  <span class="carousel-tag-exclusive">
+                    <i class="fa-solid fa-sparkles"></i> Pack Cóctel
+                  </span>
+                </div>
+
+                <h2 class="hero-title carousel-hero-title">
+                  Combo Aperol Spritz + <span>Espumante Callia Extra Brut</span>
+                </h2>
+
+                <p class="hero-desc carousel-hero-desc">
+                  El trago insignia de cada atardecer: 1 botella de <strong>Aperol 750ml</strong> + 1 <strong>Espumante Callia Extra Brut 750ml</strong>. La frescura y las burbujas ideales para tus previas y reuniones.
+                </p>
+
+                <div class="hero-features carousel-features-row">
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-wine-glass"></i>
+                    <span>Aperol Original 750ml</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-champagne-glasses"></i>
+                    <span>Callia Extra Brut 750ml</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Listo en minutos</span>
+                  </div>
+                </div>
+
+                <div class="hero-buttons carousel-buttons-row">
+                  <button class="btn-primary" onclick="addComboToCart('330')">
+                    <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($16.500)
+                  </button>
+                  <button class="btn-secondary" onclick="filterByPromoCombos()">
+                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver Todos los Combos
+                  </button>
+                </div>
+              </div>
+
+              <div class="hero-visual">
+                <div class="hero-logo-showcase">
+                  <div class="hero-badge-glow-ring">
+                    <img src="FotosDeProductos/bebidas con alcohol/aperol.jpg" alt="Aperol Spritz" class="hero-big-logo" style="border-radius: var(--radius-full); object-fit: cover;">
+                  </div>
+                  <div class="hero-card-float">
+                    <img src="FotosDeProductos/bebidas con alcohol/aperol.jpg" alt="Aperol" class="hero-card-img" style="object-fit: contain; background: rgba(255,255,255,0.06); padding: 4px;">
+                    <div>
+                      <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">CÓCTEL TENDENCIA</div>
+                      <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Aperol + Callia Extra Brut</div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$16.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$19.200</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 4: Combo 3 (Vodka Skyy Classic + Sprite 2.25L) -->
+          <div class="carousel-slide" data-slide-index="3" data-theme="combo4">
+            <div class="hero-banner carousel-banner-card">
+              <div class="hero-decor-orb hero-orb-teal"></div>
+              <div class="hero-decor-orb hero-orb-gold"></div>
+
+              <div class="hero-content">
+                <div class="carousel-tags-row">
+                  <div class="hero-tag carousel-tag-gold">
+                    <i class="fa-solid fa-bolt"></i> Previa Fiesta & Juntadas
+                  </div>
+                  <span class="carousel-tag-pill">
+                    <i class="fa-solid fa-shield-halved"></i> 4x Destilado
+                  </span>
+                  <span class="carousel-tag-exclusive">
+                    <i class="fa-solid fa-money-bill-wave"></i> Súper Rendidor
+                  </span>
+                </div>
+
+                <h2 class="hero-title carousel-hero-title">
+                  Combo Vodka Skyy Classic + <span>Sprite 2.25L</span>
+                </h2>
+
+                <p class="hero-desc carousel-hero-desc">
+                  Pureza extrema y refresco con gas para arrancar la noche: 1 botella de <strong>Vodka Skyy Classic 750ml</strong> + 1 <strong>Sprite Regular 2.25L lima-limón</strong> bien fría. ¡El mixer favorito de tus amigos!
+                </p>
+
+                <div class="hero-features carousel-features-row">
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-bottle-droplet"></i>
+                    <span>Vodka Skyy 750ml</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-glass-water"></i>
+                    <span>Sprite Regular 2.25L</span>
+                  </div>
+                  <div class="hero-feature-item">
+                    <i class="fa-solid fa-temperature-arrow-down"></i>
+                    <span>Mixer Ultra Frío</span>
+                  </div>
+                </div>
+
+                <div class="hero-buttons carousel-buttons-row">
+                  <button class="btn-primary" onclick="addComboToCart('328')">
+                    <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($17.500)
+                  </button>
+                  <button class="btn-secondary" onclick="filterByPromoCombos()">
+                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver Todos los Combos
+                  </button>
+                </div>
+              </div>
+
+              <div class="hero-visual">
+                <div class="hero-logo-showcase">
+                  <div class="hero-badge-glow-ring">
+                    <img src="FotosDeProductos/skyy vodka.jpg" alt="Vodka Skyy" class="hero-big-logo" style="border-radius: var(--radius-full); object-fit: cover;">
+                  </div>
+                  <div class="hero-card-float">
+                    <img src="FotosDeProductos/skyy vodka.jpg" alt="Vodka Skyy" class="hero-card-img" style="object-fit: contain; background: rgba(255,255,255,0.06); padding: 4px;">
+                    <div>
+                      <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">PREVIA & AMIGOS</div>
+                      <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Skyy Classic + Sprite 2.25L</div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$17.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$20.300</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controles de Flechas del Carrusel -->
+        <button class="carousel-arrow carousel-arrow-prev" id="carouselPrevBtn" aria-label="Slide anterior">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="carousel-arrow carousel-arrow-next" id="carouselNextBtn" aria-label="Siguiente slide">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- Indicadores / Dots del Carrusel -->
+        <div class="carousel-dots-wrap">
+          <div class="carousel-dots" id="carouselDots">
+            <button class="carousel-dot active" data-slide-to="0" aria-label="Slide 1: Bodega Amiga Martino Wines"></button>
+            <button class="carousel-dot" data-slide-to="1" aria-label="Slide 2: Combo Fernet Branca"></button>
+            <button class="carousel-dot" data-slide-to="2" aria-label="Slide 3: Combo Aperol Spritz"></button>
+            <button class="carousel-dot" data-slide-to="3" aria-label="Slide 4: Combo Vodka Skyy"></button>
+          </div>
+          <span class="carousel-counter-badge" id="carouselCounterBadge">1 / 4</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Destacada: Nuestra Bodega Amiga (Martino Wines - Alianza Exclusiva) -->
+  <section class="bodega-amiga-section" id="bodegaAmiga">
+    <div class="container">
+      <div class="bodega-amiga-card">
+        <div class="bodega-badge-row">
+          <span class="bodega-pill-badge"><i class="fa-solid fa-award"></i> NUESTRA BODEGA AMIGA</span>
+          <span class="bodega-location-tag"><i class="fa-solid fa-location-dot"></i> Luján de Cuyo, Mendoza</span>
+          <span class="bodega-pill-badge" style="background: rgba(60, 161, 164, 0.2); border-color: var(--teal-primary); color: var(--teal-light);"><i class="fa-solid fa-sparkles"></i> PROMO ÚNICA PAISANA</span>
+        </div>
+
+        <div class="bodega-main-layout">
+          <div class="bodega-info-block">
+            <h2 class="bodega-title">Martino Wines</h2>
+            <p class="bodega-desc">
+              Vinos contemporáneos y cepas no tradicionales que exploran la identidad de Luján de Cuyo. Encontrá sus mejores varietales seleccionados en nuestra tienda y descubrí una experiencia gastronómica exclusiva en su finca con <strong>copa de bienvenida de cortesía</strong> para clientes de Paisana.
+            </p>
+
+            <!-- Mini leyenda requerida sobre el menú de 3, 5 y 8 pasos -->
+            <div class="bodega-menu-notice">
+              <div class="menu-notice-icon"><i class="fa-solid fa-utensils"></i></div>
+              <div class="menu-notice-content">
+                <strong>Experiencia Gastronómica en Finca:</strong>
+                <span>Menú de pasos maridado por <strong>3, 5 y 8 pasos</strong> con cata guiada.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bodega-action-block">
+            <a href="https://wa.me/5492617094195?text=Hola%20Martino%20Wines!%20Me%20contacto%20desde%20la%20tienda%20web%20de%20Paisana%20Bebidas%20para%20consultar%20y%20reservar%20la%20promo%20%C3%BAnica%20/%20men%C3%BA%20de%20degustaci%C3%B3n%20(3,%205%20u%208%20pasos)." target="_blank" rel="noopener noreferrer" class="btn-reservar-bodega" id="btnReservarMartino">
+              <i class="fa-brands fa-whatsapp"></i> Reservar en Martino Wines
+            </a>
+            <span class="bodega-action-hint">Reserva directa enviada de parte de Paisana Bebidas</span>
           </div>
         </div>
       </div>
@@ -155,9 +447,14 @@
     <div class="container">
       <div class="category-tabs-container" id="categoryTabs">
         
-        <button class="category-tab-btn active" data-category="vinos" id="tab-vinos">
+        <button class="category-tab-btn active" data-category="tintos" id="tab-tintos">
           <i class="fa-solid fa-wine-glass"></i>
-          <span>Vinos</span>
+          <span>Vinos Tintos</span>
+        </button>
+
+        <button class="category-tab-btn" data-category="blancos" id="tab-blancos">
+          <i class="fa-solid fa-champagne-glasses"></i>
+          <span>Vinos Blancos</span>
         </button>
 
         <button class="category-tab-btn" data-category="bebidas" id="tab-bebidas">
@@ -224,9 +521,9 @@
       <div class="section-header-wrap">
         <div>
           <h2 class="section-title" id="currentSectionTitle">
-            <i class="fa-solid fa-wine-glass" style="color: var(--gold-primary);"></i> Vinos de Autor
+            <i class="fa-solid fa-wine-glass" style="color: var(--gold-primary);"></i> Vinos Tintos
           </h2>
-          <p class="section-subtitle" id="currentSectionSubtitle">Explorá nuestras mejores etiquetas seleccionadas por varietal</p>
+          <p class="section-subtitle" id="currentSectionSubtitle">Explorá nuestras mejores etiquetas tintas: Malbec, Cabernet Sauvignon y Blends</p>
         </div>
       </div>
 
@@ -332,6 +629,20 @@
           </div>
         </div>
 
+        <!-- Tarjeta de Punto de Retiro con Google Maps -->
+        <div class="pickup-location-card" id="pickupLocationBox" style="display: none;">
+          <div class="pickup-location-header">
+            <i class="fa-solid fa-store" style="color: var(--gold-primary); font-size: 1.25rem;"></i>
+            <div>
+              <strong>Punto de Retiro Paisana Bebidas</strong>
+              <div class="pickup-address-text">C. Tapón Moyano 1745, M5523 Mendoza</div>
+            </div>
+          </div>
+          <a href="https://maps.app.goo.gl/JSEvWcQvFY8zpxcH9" target="_blank" rel="noopener noreferrer" class="btn-maps-pickup">
+            <i class="fa-solid fa-diamond-turn-right"></i> Ver ubicación en Google Maps
+          </a>
+        </div>
+
         <div class="form-group" id="addressFieldGroup">
           <label class="form-label" for="customerAddress">Dirección de Entrega y Localidad *</label>
           <input type="text" id="customerAddress" class="form-input" placeholder="Calle, Número, Piso/Depto, Barrio">
@@ -369,7 +680,7 @@
   <div class="modal-backdrop" id="ageGateModal" role="dialog" aria-modal="true">
     <div class="modal-content-card age-gate-card">
       <div class="age-gate-brand-wrap">
-        <img src="assets/logo.svg" alt="Paisana Bebidas" class="age-gate-logo">
+        <img src="assets/LogoDePaisana.jpeg" alt="Paisana Bebidas" class="age-gate-logo">
       </div>
       <h2>Control de Acceso +18</h2>
       <p>
@@ -495,9 +806,13 @@
 
   <!-- Barra de Navegación Inferior Móvil (App Style) -->
   <nav class="mobile-bottom-nav" aria-label="Navegación móvil">
-    <button class="bottom-nav-item active" onclick="switchCategory('vinos')" id="bnav-vinos">
+    <button class="bottom-nav-item active" onclick="switchCategory('tintos')" id="bnav-tintos">
       <i class="fa-solid fa-wine-glass"></i>
-      <span>Vinos</span>
+      <span>Tintos</span>
+    </button>
+    <button class="bottom-nav-item" onclick="switchCategory('blancos')" id="bnav-blancos">
+      <i class="fa-solid fa-champagne-glasses"></i>
+      <span>Blancos</span>
     </button>
     <button class="bottom-nav-item" onclick="switchCategory('bebidas')" id="bnav-bebidas">
       <i class="fa-solid fa-beer-mug-empty"></i>
@@ -525,7 +840,7 @@
         
         <div class="footer-brand">
           <div class="footer-brand-header">
-            <img src="assets/logo.svg" alt="Paisana Bebidas" class="footer-logo-img">
+            <img src="assets/LogoDePaisana.jpeg" alt="Paisana Bebidas" class="footer-logo-img">
             <div>
               <h4>PAISANA BEBIDAS</h4>
               <span class="footer-tagline">Vinos de Autor & Bebidas Selectas</span>
@@ -552,7 +867,15 @@
           <ul class="footer-links-list">
             <li><i class="fa-regular fa-clock" style="color: var(--teal-light);"></i> Lunes a Sábados: 10:00 a 00:00 hs</li>
             <li><i class="fa-regular fa-clock" style="color: var(--teal-light);"></i> Domingos: 17:00 a 23:00 hs</li>
-            <li><i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i> Envíos y entregas en toda la ciudad</li>
+            <li class="footer-address-item">
+              <i class="fa-solid fa-store" style="color: var(--gold-primary);"></i>
+              <span><strong>Local:</strong> C. Tapón Moyano 1745, M5523 Mendoza</span>
+            </li>
+            <li>
+              <a href="https://maps.app.goo.gl/JSEvWcQvFY8zpxcH9" target="_blank" rel="noopener noreferrer" class="footer-maps-link">
+                <i class="fa-solid fa-map-location-dot" style="color: var(--teal-light);"></i> Cómo llegar en Google Maps
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -597,7 +920,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
-  <script src="data/products.js"></script>
-  <script src="app.js?v=2"></script>
+  <script src="data/products.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

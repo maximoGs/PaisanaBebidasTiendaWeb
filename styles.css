@@ -49,9 +49,10 @@
   --shadow-gold: 0 8px 25px rgba(229, 170, 56, 0.2);
   --shadow-wine: 0 8px 25px rgba(88, 32, 41, 0.3);
 
-  /* Tipografía */
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Cinzel', 'Playfair Display', Georgia, serif;
+  /* Tipografía (Slab Serif) */
+  --font-slab: 'Roboto Slab', Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-slab);
+  --font-serif: var(--font-slab);
 
   /* Layout */
   --radius-sm: 8px;
@@ -69,6 +70,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
 }
 
 html {
@@ -222,6 +227,7 @@ h1, h2, h3, .font-serif {
   position: relative;
   box-shadow: 0 0 16px var(--teal-glow);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  overflow: hidden;
 }
 
 .brand-logo:hover .brand-logo-badge {
@@ -232,7 +238,8 @@ h1, h2, h3, .font-serif {
 .brand-logo-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: var(--radius-full);
 }
 
 .brand-text {
@@ -415,92 +422,275 @@ h1, h2, h3, .font-serif {
    ========================================================================== */
 .hero-section {
   position: relative;
-  padding: 20px 0 16px;
+  padding: 16px 0 20px;
   overflow: hidden;
 }
 
-.hero-banner {
-  background: radial-gradient(circle at 85% 25%, rgba(60, 161, 164, 0.28) 0%, rgba(88, 32, 41, 0.35) 45%, rgba(17, 23, 34, 0.96) 80%),
-              linear-gradient(135deg, #131a26 0%, #0c1017 100%);
+.promo-carousel-wrapper {
+  position: relative;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(60, 161, 164, 0.25);
-  padding: 26px 20px;
+}
+
+.promo-carousel {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-slide {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide.active {
+  display: block;
+  opacity: 1;
+}
+
+.carousel-banner-card {
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
   position: relative;
   box-shadow: var(--shadow-lg);
   overflow: hidden;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+/* Temas dinámicos de cada slide */
+[data-theme="martino"] .carousel-banner-card {
+  background: radial-gradient(circle at 85% 25%, rgba(60, 161, 164, 0.30) 0%, rgba(98, 32, 45, 0.45) 45%, rgba(17, 23, 34, 0.97) 80%),
+              linear-gradient(135deg, #131a26 0%, #0c1017 100%);
+  border: 1px solid rgba(229, 170, 56, 0.45);
+}
+
+[data-theme="combo1"] .carousel-banner-card {
+  background: radial-gradient(circle at 85% 25%, rgba(229, 170, 56, 0.26) 0%, rgba(68, 24, 18, 0.50) 45%, rgba(17, 23, 34, 0.97) 80%),
+              linear-gradient(135deg, #161822 0%, #0c0f16 100%);
+  border: 1px solid rgba(229, 170, 56, 0.45);
+}
+
+[data-theme="combo2"] .carousel-banner-card {
+  background: radial-gradient(circle at 85% 25%, rgba(60, 161, 164, 0.35) 0%, rgba(22, 54, 68, 0.45) 45%, rgba(17, 23, 34, 0.97) 80%),
+              linear-gradient(135deg, #111a26 0%, #0a0e16 100%);
+  border: 1px solid rgba(60, 161, 164, 0.45);
+}
+
+[data-theme="combo3"] .carousel-banner-card {
+  background: radial-gradient(circle at 85% 25%, rgba(245, 120, 40, 0.30) 0%, rgba(96, 36, 24, 0.45) 45%, rgba(17, 23, 34, 0.97) 80%),
+              linear-gradient(135deg, #181524 0%, #0c0e16 100%);
+  border: 1px solid rgba(245, 120, 40, 0.45);
+}
+
+[data-theme="combo4"] .carousel-banner-card {
+  background: radial-gradient(circle at 85% 25%, rgba(56, 138, 248, 0.28) 0%, rgba(24, 46, 84, 0.45) 45%, rgba(17, 23, 34, 0.97) 80%),
+              linear-gradient(135deg, #111726 0%, #0a0d16 100%);
+  border: 1px solid rgba(56, 138, 248, 0.45);
 }
 
 @media (min-width: 768px) {
-  .hero-banner {
-    padding: 34px 32px;
+  .carousel-banner-card {
+    padding: 34px 36px;
     display: grid;
     grid-template-columns: 1.25fr 0.75fr;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
   }
 }
 
-.hero-decor-orb {
-  position: absolute;
-  width: 340px;
-  height: 340px;
-  border-radius: var(--radius-full);
-  filter: blur(50px);
-  pointer-events: none;
+/* Fila de Tags / Badges del Carrusel */
+.carousel-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 8px 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
 }
 
-.hero-orb-teal {
-  background: radial-gradient(circle, var(--teal-glow) 0%, transparent 70%);
-  top: -120px;
-  right: -60px;
+.carousel-tag-gold {
+  margin-bottom: 0;
 }
 
-.hero-orb-gold {
-  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
-  bottom: -100px;
-  left: 20%;
-}
-
-.hero-tag {
+.carousel-tag-pill {
+  color: var(--teal-light);
+  font-size: 0.75rem;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(229, 170, 56, 0.12);
+  gap: 5px;
+}
+
+.carousel-tag-exclusive {
+  background: rgba(229, 170, 56, 0.16);
   border: 1px solid var(--gold-primary);
   color: var(--gold-light);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 5px 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
-  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
 }
 
-.hero-tag-icon {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-.hero-title {
-  font-size: 2.1rem;
+.carousel-hero-title {
+  font-size: 1.95rem;
   font-weight: 800;
   line-height: 1.15;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   color: #ffffff;
 }
 
-.hero-title span {
+.carousel-hero-title span {
   background: linear-gradient(135deg, var(--teal-light), var(--gold-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 @media (min-width: 768px) {
-  .hero-title {
-    font-size: 2.9rem;
+  .carousel-hero-title {
+    font-size: 2.7rem;
   }
+}
+
+.carousel-hero-desc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  max-width: 540px;
+}
+
+.carousel-hero-desc strong {
+  color: #ffffff;
+}
+
+.carousel-features-row {
+  margin-bottom: 22px;
+  gap: 10px 20px;
+}
+
+.carousel-buttons-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Botón especial para Martino por WhatsApp */
+.btn-wa-martino {
+  background: linear-gradient(135deg, #128c7e, #25d366);
+  border: 1px solid #25d366;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+}
+
+.btn-wa-martino:hover {
+  background: #25d366;
+  color: #000000;
+  border-color: #ffffff;
+  box-shadow: 0 0 24px rgba(37, 211, 102, 0.65);
+}
+
+/* Flechas de navegación del Carrusel */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  background: rgba(12, 16, 23, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 170, 56, 0.4);
+  color: var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  font-size: 0.95rem;
+}
+
+.carousel-arrow:hover {
+  background: var(--gold-primary);
+  color: #000000;
+  border-color: #ffffff;
+  box-shadow: 0 0 18px var(--gold-glow);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow-prev {
+  left: 10px;
+}
+
+.carousel-arrow-next {
+  right: 10px;
+}
+
+@media (min-width: 768px) {
+  .carousel-arrow {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+  }
+  .carousel-arrow-prev {
+    left: 16px;
+  }
+  .carousel-arrow-next {
+    right: 16px;
+  }
+}
+
+/* Dots e Indicador de Slides */
+.carousel-dots-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 24px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.16);
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  padding: 0;
+}
+
+.carousel-dot:hover {
+  background: rgba(229, 170, 56, 0.5);
+}
+
+.carousel-dot.active {
+  width: 46px;
+  background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.carousel-counter-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.05em;
 }
 
 .hero-desc {
@@ -637,7 +827,8 @@ h1, h2, h3, .font-serif {
 .hero-big-logo {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: var(--radius-full);
   position: relative;
   z-index: 2;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.7));
@@ -1830,12 +2021,14 @@ h1, h2, h3, .font-serif {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .age-gate-logo {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: var(--radius-full);
 }
 
 .age-gate-card h2 {
@@ -1888,18 +2081,28 @@ h1, h2, h3, .font-serif {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  font-size: 0.72rem;
+  gap: 3px;
+  font-size: 0.68rem;
   font-weight: 600;
   cursor: pointer;
   position: relative;
-  width: 20%;
+  flex: 1 1 0;
+  min-width: 0;
   height: 100%;
+  padding: 0 2px;
   transition: var(--transition-fast);
 }
 
+.bottom-nav-item span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  font-size: 0.65rem;
+}
+
 .bottom-nav-item i {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .bottom-nav-item.active {
@@ -1912,11 +2115,11 @@ h1, h2, h3, .font-serif {
 
 .bottom-nav-badge {
   position: absolute;
-  top: 6px;
-  right: 20%;
+  top: 5px;
+  right: calc(50% - 15px);
   background: var(--gold-primary);
   color: #000;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 800;
   border-radius: var(--radius-full);
   min-width: 16px;
@@ -1962,7 +2165,7 @@ h1, h2, h3, .font-serif {
 .footer-logo-img {
   width: 44px;
   height: 44px;
-  object-fit: contain;
+  object-fit: cover;
   box-shadow: 0 0 12px var(--teal-glow);
   border-radius: var(--radius-full);
 }
@@ -2223,3 +2426,402 @@ h1, h2, h3, .font-serif {
   from { opacity: 1; }
   to { opacity: 0; }
 }
+
+/* ==========================================================================
+   ANNOUNCEMENT BAR & GOOGLE MAPS LINK
+   ========================================================================== */
+.announcement-maps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  transition: var(--transition-fast);
+}
+
+.announcement-maps-link:hover {
+  color: #fff;
+}
+
+/* ==========================================================================
+   SECCIÓN BODEGA AMIGA (MARTINO WINES)
+   ========================================================================== */
+.bodega-amiga-section {
+  padding: 12px 0 18px;
+}
+
+.bodega-amiga-card {
+  background: radial-gradient(circle at 15% 50%, rgba(60, 161, 164, 0.18) 0%, rgba(229, 170, 56, 0.08) 50%, rgba(17, 23, 34, 0.95) 100%),
+              linear-gradient(135deg, #131a26 0%, #0d121a 100%);
+  border: 1px solid rgba(229, 170, 56, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 20px 18px;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(229, 170, 56, 0.08);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .bodega-amiga-card {
+    padding: 26px 32px;
+  }
+}
+
+.bodega-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.bodega-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(229, 170, 56, 0.15);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.bodega-location-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--teal-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.bodega-main-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 860px) {
+  .bodega-main-layout {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+  }
+}
+
+.bodega-info-block {
+  flex: 1;
+}
+
+.bodega-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 768px) {
+  .bodega-title {
+    font-size: 1.8rem;
+  }
+}
+
+.bodega-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 12px;
+  max-width: 620px;
+}
+
+/* Mini leyenda requerida sobre el menú de 3, 5 y 8 pasos */
+.bodega-menu-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(229, 170, 56, 0.10);
+  border: 1px solid rgba(229, 170, 56, 0.3);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  color: var(--gold-light);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.menu-notice-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: rgba(229, 170, 56, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-primary);
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+.bodega-action-block {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 860px) {
+  .bodega-action-block {
+    align-items: flex-end;
+    min-width: 240px;
+  }
+}
+
+.btn-reservar-bodega {
+  background: linear-gradient(135deg, #128c7e, #25d366);
+  color: #0b1c14;
+  border: 1px solid #25d366;
+  font-weight: 800;
+  font-size: 0.90rem;
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.btn-reservar-bodega:hover {
+  background: #25d366;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55);
+}
+
+.bodega-action-hint {
+  font-size: 0.70rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ==========================================================================
+   TARJETA DE RETIRO EN LOCAL & GOOGLE MAPS
+   ========================================================================== */
+.pickup-location-card {
+  background: rgba(229, 170, 56, 0.08);
+  border: 1px solid rgba(229, 170, 56, 0.3);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.pickup-location-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.pickup-location-header strong {
+  font-size: 0.88rem;
+  color: #ffffff;
+  display: block;
+}
+
+.pickup-address-text {
+  font-size: 0.82rem;
+  color: var(--gold-light);
+  margin-top: 2px;
+}
+
+.btn-maps-pickup {
+  background: rgba(60, 161, 164, 0.15);
+  border: 1px solid var(--teal-primary);
+  color: var(--teal-light);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.80rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+  width: 100%;
+}
+
+.btn-maps-pickup:hover {
+  background: var(--teal-primary);
+  color: #000;
+}
+
+.footer-address-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.footer-maps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--teal-light);
+  font-size: 0.80rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition-fast);
+  margin-top: 2px;
+}
+
+.footer-maps-link:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   REFINAMIENTOS MOBILE-FIRST (PRIORIDAD CELULARES)
+   ========================================================================== */
+@media (max-width: 576px) {
+  .announcement-bar {
+    font-size: 0.70rem;
+    padding: 6px 8px;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .header-content {
+    padding: 8px 0;
+  }
+
+  .brand-title {
+    font-size: 1.15rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.58rem;
+  }
+
+  .hero-section {
+    padding: 12px 0 10px;
+  }
+
+  .hero-banner {
+    padding: 18px 14px;
+  }
+
+  .hero-title {
+    font-size: 1.65rem;
+  }
+
+  .hero-desc {
+    font-size: 0.84rem;
+    margin-bottom: 14px;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bodega-amiga-card {
+    padding: 16px 14px;
+  }
+
+  .bodega-title {
+    font-size: 1.35rem;
+  }
+
+  .bodega-menu-notice {
+    font-size: 0.76rem;
+    padding: 8px 10px;
+    width: 100%;
+  }
+
+  .btn-reservar-bodega {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+  }
+
+  .category-tab-btn {
+    padding: 7px 13px;
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+
+  .subchip-btn {
+    padding: 5px 11px;
+    font-size: 0.75rem;
+  }
+
+  .catalog-controls {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  .products-grid {
+    gap: 8px;
+  }
+
+  .product-media {
+    height: 125px;
+  }
+
+  .product-body {
+    padding: 8px;
+  }
+
+  .product-name {
+    font-size: 0.78rem;
+    height: 2.2em;
+    margin-bottom: 2px;
+  }
+
+  .product-details-brief {
+    font-size: 0.68rem;
+    margin-bottom: 4px;
+  }
+
+  .current-price {
+    font-size: 0.88rem;
+  }
+
+  .btn-add-cart {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .cart-drawer {
+    max-width: 100%;
+  }
+
+  .modal-content-card {
+    padding: 18px 14px;
+    max-height: 92vh;
+  }
+}
+
