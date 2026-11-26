@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Paisana Bebidas | Vinos de Autor & Bebidas Selectas</title>
-  <meta name="description" content="Tienda online de Paisana Bebidas. Vinos de autor por varietales (Malbec, Cabernet, Blends, Blancos, Rosados, Espumantes), destilados, aperitivos, bebidas sin alcohol y snacks. Envíos rápidos.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paisana Bebidas | Vinos de Autor, Combos & Bebidas Selectas</title>
+  <meta name="description" content="Tienda online de Paisana Bebidas en Mendoza. Catálogo sectorizado por rubros: Vinos Tintos, Blancos y Espumantes, Combos Previa, Cervezas y Destilados, Bebidas sin Alcohol, Café de Especialidad, Snacks, Hielo y Regalería.">
   
   <!-- Open Graph / Redes Sociales -->
-  <meta property="og:title" content="Paisana Bebidas | Vinos de Autor & Bebidas Selectas">
-  <meta property="og:description" content="Catálogo exclusivo de vinos, bebidas destiladas, mixers y snacks con entrega rápida. Hacé tu pedido directo por WhatsApp.">
+  <meta property="og:title" content="Paisana Bebidas | Vinos de Autor, Combos & Bebidas Selectas">
+  <meta property="og:description" content="Explorá más de 570 productos organizados por rubro con entrega rápida en Mendoza o retiro en local. Pedí directo por WhatsApp.">
   <meta property="og:type" content="website">
   
   <!-- Google Fonts: Roboto Slab -->
@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Estilos Principales -->
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=6">
   <link rel="icon" type="image/jpeg" href="assets/LogoDePaisana.jpeg">
 </head>
 <body>
@@ -55,7 +55,7 @@
         <div class="header-search">
           <div class="search-input-wrapper">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="desktopSearchInput" class="search-input" placeholder="Buscar vino, lúpulo, gin, fernet, combos, snacks...">
+            <input type="text" id="desktopSearchInput" class="search-input" placeholder="Buscar vino, combo, vermouth, cerveza, café, hielo...">
             <button class="search-clear-btn" id="desktopSearchClear" aria-label="Limpiar búsqueda">
               <i class="fa-solid fa-xmark"></i>
             </button>
@@ -64,6 +64,11 @@
 
         <!-- Botones de Acción Header -->
         <div class="header-actions">
+          <button class="action-btn rubros-header-btn" id="openRubrosHeaderBtn" title="Explorar todos los Rubros" aria-label="Explorar Rubros">
+            <i class="fa-solid fa-layer-group"></i>
+            <span class="rubros-btn-label">Rubros</span>
+          </button>
+
           <a href="https://wa.me/5492612586004" target="_blank" rel="noopener noreferrer" class="action-btn action-btn-wa" title="Contactar por WhatsApp" aria-label="WhatsApp directo">
             <i class="fa-brands fa-whatsapp"></i>
           </a>
@@ -84,14 +89,14 @@
   <div class="mobile-search-section">
     <div class="search-input-wrapper">
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
-      <input type="text" id="mobileSearchInput" class="search-input" placeholder="Buscar vino, gin, cerveza, snacks...">
+      <input type="text" id="mobileSearchInput" class="search-input" placeholder="Buscar producto, marca, cepa o rubro...">
       <button class="search-clear-btn" id="mobileSearchClear" aria-label="Limpiar búsqueda">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
   </div>
 
-  <!-- Carrusel Promocional de Inicio (Bodega Amiga + 3 Combos Destacados) -->
+  <!-- Carrusel Promocional de Inicio (Bodega Amiga + Combos Destacados) -->
   <section class="hero-section" id="inicio" aria-roledescription="carousel" aria-label="Promociones y Bodega Amiga">
     <div class="container">
       <div class="promo-carousel-wrapper" id="promoCarouselWrapper">
@@ -161,7 +166,7 @@
                     <div>
                       <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">BODEGA AMIGA SELECCIÓN</div>
                       <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Martino Wines Colección</div>
-                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$22.500 <span style="font-size: 0.7rem; color: var(--teal-light); font-weight: 600;">• 5 Varietales</span></div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$22.500 <span style="font-size: 0.7rem; color: var(--teal-light); font-weight: 600;">• 8 Etiquetas</span></div>
                     </div>
                   </div>
                 </div>
@@ -169,7 +174,7 @@
             </div>
           </div>
 
-          <!-- SLIDE 2: Combo 1 (Fernet Branca + Coca-Cola + Hielo) -->
+          <!-- SLIDE 2: Combo 1 (Fernet Branca + Coca-Cola 2.25L + Hielo) -->
           <div class="carousel-slide" data-slide-index="1" data-theme="combo1">
             <div class="hero-banner carousel-banner-card">
               <div class="hero-decor-orb hero-orb-teal"></div>
@@ -193,7 +198,7 @@
                 </h2>
 
                 <p class="hero-desc carousel-hero-desc">
-                  El rey indiscutido de las juntadas mendocinas: 1 botella de <strong>Fernet Branca 750ml</strong> + 1 <strong>Coca-Cola 2.25L regular</strong> + 1 <strong>Bolsa de Hielo Rolito</strong>. ¡Todo frío y listo para servir en tu previa!
+                  El rey indiscutido de las juntadas mendocinas: 1 botella de <strong>Fernet Branca 750ml</strong> + 1 <strong>Coca-Cola 2.25L regular</strong> + 1 <strong>Bolsa de Hielo</strong>. ¡Todo frío y listo para servir en tu previa!
                 </p>
 
                 <div class="hero-features carousel-features-row">
@@ -207,16 +212,16 @@
                   </div>
                   <div class="hero-feature-item">
                     <i class="fa-solid fa-snowflake"></i>
-                    <span>Bolsa Hielo Rolito</span>
+                    <span>Bolsa de Hielo</span>
                   </div>
                 </div>
 
                 <div class="hero-buttons carousel-buttons-row">
-                  <button class="btn-primary" onclick="addComboToCart('479')">
+                  <button class="btn-primary" onclick="addComboToCart('Combo Branca + Coca 2.25L + Hielo')">
                     <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($25.500)
                   </button>
                   <button class="btn-secondary" onclick="filterByPromoCombos()">
-                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver Todos los Combos
+                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver los 60 Combos
                   </button>
                 </div>
               </div>
@@ -231,7 +236,7 @@
                     <div>
                       <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">COMBO MÁS PEDIDO</div>
                       <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Fernet Branca + Coca + Hielo</div>
-                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$25.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$28.900</span></div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$25.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$28.300</span></div>
                     </div>
                   </div>
                 </div>
@@ -254,7 +259,7 @@
                     <i class="fa-solid fa-champagne-glasses"></i> Burbujas Extra Brut
                   </span>
                   <span class="carousel-tag-exclusive">
-                    <i class="fa-solid fa-sparkles"></i> Pack Cóctel
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Pack Cóctel
                   </span>
                 </div>
 
@@ -282,11 +287,11 @@
                 </div>
 
                 <div class="hero-buttons carousel-buttons-row">
-                  <button class="btn-primary" onclick="addComboToCart('330')">
-                    <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($16.500)
+                  <button class="btn-primary" onclick="addComboToCart('Combo Aperol y Espumante Callia')">
+                    <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($17.900)
                   </button>
                   <button class="btn-secondary" onclick="filterByPromoCombos()">
-                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver Todos los Combos
+                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver los 60 Combos
                   </button>
                 </div>
               </div>
@@ -301,7 +306,7 @@
                     <div>
                       <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">CÓCTEL TENDENCIA</div>
                       <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Aperol + Callia Extra Brut</div>
-                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$16.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$19.200</span></div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$17.900 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$21.400</span></div>
                     </div>
                   </div>
                 </div>
@@ -309,7 +314,7 @@
             </div>
           </div>
 
-          <!-- SLIDE 4: Combo 3 (Vodka Skyy Classic + Sprite 2.25L) -->
+          <!-- SLIDE 4: Combo 3 (Vodka Skyy Classic + Sprite 2.5L) -->
           <div class="carousel-slide" data-slide-index="3" data-theme="combo4">
             <div class="hero-banner carousel-banner-card">
               <div class="hero-decor-orb hero-orb-teal"></div>
@@ -329,11 +334,11 @@
                 </div>
 
                 <h2 class="hero-title carousel-hero-title">
-                  Combo Vodka Skyy Classic + <span>Sprite 2.25L</span>
+                  Combo Vodka Skyy Classic + <span>Sprite 2.5L</span>
                 </h2>
 
                 <p class="hero-desc carousel-hero-desc">
-                  Pureza extrema y refresco con gas para arrancar la noche: 1 botella de <strong>Vodka Skyy Classic 750ml</strong> + 1 <strong>Sprite Regular 2.25L lima-limón</strong> bien fría. ¡El mixer favorito de tus amigos!
+                  Pureza extrema y refresco con gas para arrancar la noche: 1 botella de <strong>Vodka Skyy Classic 750ml</strong> + 1 <strong>Sprite Regular 2.5L lima-limón</strong> bien fría. ¡El mixer favorito de tus amigos!
                 </p>
 
                 <div class="hero-features carousel-features-row">
@@ -343,7 +348,7 @@
                   </div>
                   <div class="hero-feature-item">
                     <i class="fa-solid fa-glass-water"></i>
-                    <span>Sprite Regular 2.25L</span>
+                    <span>Sprite Regular 2.5L</span>
                   </div>
                   <div class="hero-feature-item">
                     <i class="fa-solid fa-temperature-arrow-down"></i>
@@ -352,11 +357,11 @@
                 </div>
 
                 <div class="hero-buttons carousel-buttons-row">
-                  <button class="btn-primary" onclick="addComboToCart('328')">
-                    <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($17.500)
+                  <button class="btn-primary" onclick="addComboToCart('Combo Skyy Classic y Sprite 2.5L')">
+                    <i class="fa-solid fa-cart-plus"></i> Pedir Combo ($17.900)
                   </button>
                   <button class="btn-secondary" onclick="filterByPromoCombos()">
-                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver Todos los Combos
+                    <i class="fa-solid fa-fire" style="color: var(--gold-primary);"></i> Ver los 60 Combos
                   </button>
                 </div>
               </div>
@@ -370,8 +375,8 @@
                     <img src="FotosDeProductos/skyy vodka.jpg" alt="Vodka Skyy" class="hero-card-img" style="object-fit: contain; background: rgba(255,255,255,0.06); padding: 4px;">
                     <div>
                       <div style="font-size: 0.72rem; color: var(--gold-primary); font-weight: 700; letter-spacing: 0.05em;">PREVIA & AMIGOS</div>
-                      <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Skyy Classic + Sprite 2.25L</div>
-                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$17.500 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$20.300</span></div>
+                      <div style="font-size: 0.88rem; font-weight: 700; color: #fff;">Skyy Classic + Sprite 2.5L</div>
+                      <div style="font-size: 0.84rem; color: var(--gold-light); font-weight: 800;">$17.900 <span style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">$20.400</span></div>
                     </div>
                   </div>
                 </div>
@@ -411,14 +416,14 @@
         <div class="bodega-badge-row">
           <span class="bodega-pill-badge"><i class="fa-solid fa-award"></i> NUESTRA BODEGA AMIGA</span>
           <span class="bodega-location-tag"><i class="fa-solid fa-location-dot"></i> Luján de Cuyo, Mendoza</span>
-          <span class="bodega-pill-badge" style="background: rgba(60, 161, 164, 0.2); border-color: var(--teal-primary); color: var(--teal-light);"><i class="fa-solid fa-sparkles"></i> PROMO ÚNICA PAISANA</span>
+          <span class="bodega-pill-badge" style="background: rgba(60, 161, 164, 0.2); border-color: var(--teal-primary); color: var(--teal-light);"><i class="fa-solid fa-star"></i> PROMO ÚNICA PAISANA</span>
         </div>
 
         <div class="bodega-main-layout">
           <div class="bodega-info-block">
             <h2 class="bodega-title">Martino Wines</h2>
             <p class="bodega-desc">
-              Vinos contemporáneos y cepas no tradicionales que exploran la identidad de Luján de Cuyo. Encontrá sus mejores varietales seleccionados en nuestra tienda y descubrí una experiencia gastronómica exclusiva en su finca con <strong>copa de bienvenida de cortesía</strong> para clientes de Paisana.
+              Vinos contemporáneos y cepas no tradicionales que exploran la identidad de Luján de Cuyo. Encontrá sus 8 etiquetas seleccionadas en nuestra tienda y descubrí una experiencia gastronómica exclusiva en su finca con <strong>copa de bienvenida de cortesía</strong> para clientes de Paisana.
             </p>
 
             <!-- Mini leyenda requerida sobre el menú de 3, 5 y 8 pasos -->
@@ -442,7 +447,60 @@
     </div>
   </section>
 
-  <!-- Pestañas Principales de Categoría (Sticky Navigation) -->
+  <!-- Apartado Compacto: Calendario de Eventos (Diciembre) -->
+  <section class="events-calendar-section" id="agendaEventos" aria-label="Calendario de eventos de diciembre">
+    <div class="container">
+      <div class="calendar-card">
+        <div class="calendar-top-row">
+          <div class="calendar-heading">
+            <span class="calendar-pill-badge">
+              <i class="fa-regular fa-calendar-days"></i> AGENDA PAISANA • DICIEMBRE 2026
+            </span>
+            <h2 class="calendar-title">Próximos Eventos Destacados</h2>
+            <p class="calendar-subtitle">Hacé clic en el <strong>5</strong> o el <strong>12 de diciembre</strong> para desplegar el evento y su horario.</p>
+          </div>
+
+          <div class="calendar-quick-pills">
+            <button type="button" class="calendar-quick-btn" data-event-day="5" id="quickEventBtn5" aria-expanded="false" onclick="toggleCalendarEvent(5)">
+              <span class="quick-day-num">5 DIC</span>
+              <span class="quick-day-name">Reinauguración Web</span>
+              <i class="fa-solid fa-chevron-down quick-day-chevron"></i>
+            </button>
+            <button type="button" class="calendar-quick-btn" data-event-day="12" id="quickEventBtn12" aria-expanded="false" onclick="toggleCalendarEvent(12)">
+              <span class="quick-day-num">12 DIC</span>
+              <span class="quick-day-name">Degustación de Gin</span>
+              <i class="fa-solid fa-chevron-down quick-day-chevron"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="calendar-body-layout">
+          <!-- Mini Calendario de Diciembre 2026 -->
+          <div class="mini-calendar-box">
+            <div class="mini-calendar-month-bar">
+              <span><i class="fa-solid fa-calendar-day"></i> Diciembre 2026</span>
+              <span class="mini-calendar-legend"><span class="legend-dot"></span> Fecha con evento</span>
+            </div>
+            <div class="mini-calendar-weekdays" aria-hidden="true">
+              <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+            </div>
+            <div class="mini-calendar-grid" id="miniCalendarGrid">
+              <!-- Generado dinámicamente por JS -->
+            </div>
+          </div>
+
+          <!-- Panel Expandible de Descripción del Evento -->
+          <div class="calendar-event-expand" id="calendarEventExpand" aria-live="polite">
+            <div class="calendar-event-inner" id="calendarEventContent">
+              <!-- Inyectado al seleccionar un día destacado -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pestañas Principales por Sector / Rubro (Sticky Navigation) -->
   <section class="categories-nav-section" id="catalogo">
     <div class="container">
       <div class="category-tabs-container" id="categoryTabs">
@@ -450,44 +508,65 @@
         <button class="category-tab-btn active" data-category="tintos" id="tab-tintos">
           <i class="fa-solid fa-wine-glass"></i>
           <span>Vinos Tintos</span>
+          <span class="tab-count-pill" data-count-cat="tintos">0</span>
         </button>
 
         <button class="category-tab-btn" data-category="blancos" id="tab-blancos">
           <i class="fa-solid fa-champagne-glasses"></i>
-          <span>Vinos Blancos</span>
+          <span>Blancos & Espumantes</span>
+          <span class="tab-count-pill" data-count-cat="blancos">0</span>
+        </button>
+
+        <button class="category-tab-btn" data-category="combos" id="tab-combos">
+          <i class="fa-solid fa-fire"></i>
+          <span>Combos & Promos</span>
+          <span class="tab-count-pill" data-count-cat="combos">0</span>
         </button>
 
         <button class="category-tab-btn" data-category="bebidas" id="tab-bebidas">
           <i class="fa-solid fa-beer-mug-empty"></i>
-          <span>Cervezas & Bebidas</span>
+          <span>Cervezas & Destilados</span>
+          <span class="tab-count-pill" data-count-cat="bebidas">0</span>
         </button>
 
         <button class="category-tab-btn" data-category="sin-alcohol" id="tab-sin-alcohol">
           <i class="fa-solid fa-bottle-water"></i>
-          <span>Bebidas sin Alcohol</span>
+          <span>Sin Alcohol</span>
+          <span class="tab-count-pill" data-count-cat="sin-alcohol">0</span>
         </button>
 
         <button class="category-tab-btn" data-category="snacks" id="tab-snacks">
-          <i class="fa-solid fa-bowl-food"></i>
-          <span>Snacks y Varios</span>
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Café, Snacks & Gourmet</span>
+          <span class="tab-count-pill" data-count-cat="snacks">0</span>
+        </button>
+
+        <button class="category-tab-btn" data-category="varios" id="tab-varios">
+          <i class="fa-solid fa-cubes-stacked"></i>
+          <span>Hielo, Tabaco & Regalos</span>
+          <span class="tab-count-pill" data-count-cat="varios">0</span>
         </button>
 
       </div>
     </div>
   </section>
 
-  <!-- Sub-pestañas / Chips de Varietales y Filtros Dinámicos -->
+  <!-- Sub-pestañas / Chips de Rubros y Controles Dinámicos -->
   <section class="subcategories-bar">
     <div class="container">
       <div class="subcategories-container">
         
-        <!-- Chips que cambian según la categoría activa -->
+        <!-- Chips que cambian según el sector activo -->
         <div class="subcategories-chips" id="subcategoryChips">
           <!-- Inyectado dinámicamente con JS -->
         </div>
 
-        <!-- Controles: Contador de artículos, selector de vista y ordenamiento -->
+        <!-- Controles: Índice de rubros, contador, selector de vista y ordenamiento -->
         <div class="catalog-controls">
+          <button class="btn-rubros-index" id="openRubrosCatalogBtn" title="Ver índice completo de los 34 rubros">
+            <i class="fa-solid fa-layer-group"></i> Índice de Rubros
+          </button>
+
           <span class="items-counter" id="itemsCount">0 productos</span>
           
           <div class="view-mode-toggle" id="viewModeToggle" role="group" aria-label="Modo de vista">
@@ -514,7 +593,7 @@
     </div>
   </section>
 
-  <!-- Catálogo de Productos (Grid) -->
+  <!-- Catálogo de Productos (Grid / Lista) -->
   <main class="catalog-section">
     <div class="container">
       
@@ -523,9 +602,12 @@
           <h2 class="section-title" id="currentSectionTitle">
             <i class="fa-solid fa-wine-glass" style="color: var(--gold-primary);"></i> Vinos Tintos
           </h2>
-          <p class="section-subtitle" id="currentSectionSubtitle">Explorá nuestras mejores etiquetas tintas: Malbec, Cabernet Sauvignon y Blends</p>
+          <p class="section-subtitle" id="currentSectionSubtitle">Malbec, Cabernet Sauvignon, Cabernet Franc, varietales de autor, Bag in Box y Damajuanas</p>
         </div>
       </div>
+
+      <!-- Barra de contexto cuando hay búsqueda global o filtro directo por Rubro -->
+      <div class="active-filter-bar" id="activeFilterBar" style="display: none;"></div>
 
       <!-- Grid de Tarjetas -->
       <div class="products-grid" id="productsGrid">
@@ -534,6 +616,26 @@
 
     </div>
   </main>
+
+  <!-- Modal: Índice Completo de Rubros del Inventario -->
+  <div class="modal-backdrop" id="rubrosModal" role="dialog" aria-modal="true" aria-label="Índice de Rubros">
+    <div class="modal-content-card rubros-modal-card">
+      <button class="modal-close-btn" id="closeRubrosModalBtn" aria-label="Cerrar índice de rubros">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="rubros-modal-header">
+        <h3>
+          <i class="fa-solid fa-layer-group" style="color: var(--gold-primary);"></i> Explorar por Rubro
+        </h3>
+        <p>Seleccioná cualquier departamento o rubro específico del catálogo para filtrar al instante.</p>
+      </div>
+
+      <div class="rubros-directory-body" id="rubrosDirectoryBody">
+        <!-- Inyectado dinámicamente con los 7 sectores y 34 rubros reales -->
+      </div>
+    </div>
+  </div>
 
   <!-- Modal de Detalle de Producto -->
   <div class="modal-backdrop" id="productModal" role="dialog" aria-modal="true">
@@ -556,15 +658,20 @@
       <h3>
         <i class="fa-solid fa-bag-shopping" style="color: var(--gold-primary);"></i> Tu Pedido
       </h3>
-      <button class="cart-close-btn" id="closeCartBtn" aria-label="Cerrar Carrito">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+      <div class="cart-header-actions">
+        <button class="cart-clear-all-btn" id="clearCartBtn" title="Vaciar todo el carrito" style="display: none;">
+          <i class="fa-solid fa-trash-can"></i> Vaciar
+        </button>
+        <button class="cart-close-btn" id="closeCartBtn" aria-label="Cerrar Carrito">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Sub-encabezado de Carrito -->
     <div class="cart-subhead-notice">
-      <i class="fa-solid fa-shield-check" style="color: var(--gold-primary);"></i>
-      <span>Coordiná entrega o retiro directo por WhatsApp</span>
+      <i class="fa-solid fa-shield-halved" style="color: var(--gold-primary);"></i>
+      <span>Coordiná entrega a domicilio o retiro en local directo por WhatsApp</span>
     </div>
 
     <!-- Lista de Productos en el Carrito -->
@@ -583,7 +690,7 @@
         <span id="cartShippingFee">$0</span>
       </div>
       <div class="cart-summary-total">
-        <span>Total a Pagar</span>
+        <span>Total Estimado</span>
         <span id="cartTotalSum">$0</span>
       </div>
 
@@ -645,21 +752,21 @@
 
         <div class="form-group" id="addressFieldGroup">
           <label class="form-label" for="customerAddress">Dirección de Entrega y Localidad *</label>
-          <input type="text" id="customerAddress" class="form-input" placeholder="Calle, Número, Piso/Depto, Barrio">
+          <input type="text" id="customerAddress" class="form-input" placeholder="Calle, Número, Piso/Depto, Barrio" required>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="paymentMethod">Medio de Pago Preferido *</label>
           <select id="paymentMethod" class="form-select">
             <option value="Transferencia Bancaria / Mercado Pago">💳 Transferencia / Mercado Pago (Alias)</option>
-            <option value="Efectivo contra entrega">💵 Efectivo al recibir (10% OFF)</option>
+            <option value="Efectivo contra entrega">💵 Efectivo al recibir / en local</option>
             <option value="Tarjeta de Débito / Crédito">💳 Tarjeta en punto de entrega</option>
           </select>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="orderNotes">Notas adicionales o aclaraciones</label>
-          <input type="text" id="orderNotes" class="form-input" placeholder="Ej: Timbre no anda, enviar cambio de $10.000, etc.">
+          <input type="text" id="orderNotes" class="form-input" placeholder="Ej: Timbre no anda, enviar cambio, etc.">
         </div>
 
         <div class="checkout-legal-notice">
@@ -725,12 +832,12 @@
 
         <div class="form-group">
           <label class="form-label" for="regretContact">Teléfono / WhatsApp o Email *</label>
-          <input type="text" id="regretContact" class="form-input" placeholder="Ej: 11 2345-6789 o usuario@email.com" required>
+          <input type="text" id="regretContact" class="form-input" placeholder="Ej: 261 123-4567 o usuario@email.com" required>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="regretOrderCode">Nº de Pedido o Fecha / Detalle de la Solicitud *</label>
-          <input type="text" id="regretOrderCode" class="form-input" placeholder="Ej: Pedido del 24/08 o código provisto" required>
+          <input type="text" id="regretOrderCode" class="form-input" placeholder="Ej: Pedido #COT-12345 o fecha de compra" required>
         </div>
 
         <div class="form-group">
@@ -776,7 +883,7 @@
 
         <h4>2. Mayoría de Edad (Ley Nacional 24.788)</h4>
         <p>
-          Queda expresamente prohibido el consumo y venta de bebidas alcohólicas a menores de 18 años. Todo pedido o consulta de cotización requiere la acreditación fehaciente de la mayoría de edad mediante Documento Nacional de Identidad al momento de la entrega. Beber con moderación.
+          Queda expresamente prohibido el consumo y venta de bebidas alcohólicas y productos de tabaquería a menores de 18 años. Todo pedido o consulta de cotización requiere la acreditación fehaciente de la mayoría de edad mediante Documento Nacional de Identidad al momento de la entrega. Beber con moderación.
         </p>
 
         <h4>3. Protección de Datos Personales (Ley 25.326)</h4>
@@ -804,15 +911,20 @@
     </div>
   </div>
 
+  <!-- Botón Flotante Volver Arriba -->
+  <button class="back-to-top-btn" id="backToTopBtn" aria-label="Volver arriba" title="Subir al inicio del catálogo">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
   <!-- Barra de Navegación Inferior Móvil (App Style) -->
   <nav class="mobile-bottom-nav" aria-label="Navegación móvil">
     <button class="bottom-nav-item active" onclick="switchCategory('tintos')" id="bnav-tintos">
       <i class="fa-solid fa-wine-glass"></i>
-      <span>Tintos</span>
+      <span>Vinos</span>
     </button>
-    <button class="bottom-nav-item" onclick="switchCategory('blancos')" id="bnav-blancos">
-      <i class="fa-solid fa-champagne-glasses"></i>
-      <span>Blancos</span>
+    <button class="bottom-nav-item" onclick="switchCategory('combos')" id="bnav-combos">
+      <i class="fa-solid fa-fire"></i>
+      <span>Combos</span>
     </button>
     <button class="bottom-nav-item" onclick="switchCategory('bebidas')" id="bnav-bebidas">
       <i class="fa-solid fa-beer-mug-empty"></i>
@@ -820,11 +932,11 @@
     </button>
     <button class="bottom-nav-item" onclick="switchCategory('sin-alcohol')" id="bnav-sin-alcohol">
       <i class="fa-solid fa-bottle-water"></i>
-      <span>Sin Alcohol</span>
+      <span>Sin Alc.</span>
     </button>
-    <button class="bottom-nav-item" onclick="switchCategory('snacks')" id="bnav-snacks">
-      <i class="fa-solid fa-bowl-food"></i>
-      <span>Snacks</span>
+    <button class="bottom-nav-item" onclick="openRubrosModal()" id="bnav-rubros">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Rubros</span>
     </button>
     <button class="bottom-nav-item" id="mobileCartBtn" aria-label="Ver Carrito">
       <i class="fa-solid fa-bag-shopping"></i>
@@ -847,7 +959,7 @@
             </div>
           </div>
           <p>
-            Curaduría especializada de vinos boutique, cervezas de autor con lúpulos seleccionados, destilados premium y aperitivos para elevar cada encuentro.
+            Curaduría especializada de vinos mendocinos, combos previa, cervezas, destilados premium, cafetería de especialidad, productos regionales y regalería para elevar cada encuentro.
           </p>
           <div class="social-links">
             <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
@@ -920,7 +1032,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
-  <script src="data/products.js?v=3"></script>
-  <script src="app.js?v=3"></script>
+  <script src="data/products.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
